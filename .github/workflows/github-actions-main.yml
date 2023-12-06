@@ -16,3 +16,61 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+
+  Install-Dependencies-Linux:
+    name: Miniconda Linux v3
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniconda-version: "latest"
+          activate-environment: rtvc-py
+      - name: Bash
+        shell: bash -el {0}
+        run: |
+          echo "Install ffmpeg..."
+          apt update && apt upgrade
+          apt install ffmpeg
+          ffmpeg -version
+          conda info
+          conda list
+          echo "Install PyTorch..."
+          conda install -c pytorch pytorch
+          echo "Install pip requirements..."
+          pip install -r requirements.txt
+      - name: PowerShell Core
+        shell: pwsh
+        run: |
+          conda info
+          conda list
+
+  Install-Dependencies-Linux-Win:
+    name: Miniconda Windows v3
+    runs-on: "windows-latest"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniconda-version: "latest"
+          activate-environment: rtvc-py
+      - name: Bash
+        shell: bash -el {0}
+        run: |
+            conda info
+            conda list
+            conda install -c pytorch pytorch
+      - name: PowerShell
+        shell: powershell
+        run: |
+            conda info
+            conda list
+      - name: PowerShell Core
+        shell: pwsh
+        run: |
+            conda info
+            conda list
+      - name: Cmd.exe
+        shell: cmd /C CALL {0}
+        run: >-
+            conda info && conda list
