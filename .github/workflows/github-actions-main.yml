@@ -30,8 +30,8 @@ jobs:
         shell: bash -el {0}
         run: |
           echo "Install ffmpeg..."
-          apt update && apt upgrade
-          apt install ffmpeg
+          sudo apt update && apt upgrade
+          sudo apt install ffmpeg
           ffmpeg -version
           conda info
           conda list
