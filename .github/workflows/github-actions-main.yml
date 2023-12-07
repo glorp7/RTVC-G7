@@ -26,6 +26,7 @@ jobs:
         with:
           miniconda-version: "latest"
           activate-environment: rtvc-py
+          python-version: 3.10
       - name: Bash
         shell: bash -el {0}
         run: |
@@ -36,7 +37,7 @@ jobs:
           conda info
           conda list
           echo "Install PyTorch..."
-          conda install -c pytorch pytorch
+          conda install pytorch torchvision torchaudio cpuonly -c pytorch
           echo "Install pip requirements..."
           pip install -r requirements.txt
       - name: PowerShell Core
@@ -54,12 +55,13 @@ jobs:
         with:
           miniconda-version: "latest"
           activate-environment: rtvc-py
+          python-version: 3.10
       - name: Bash
         shell: bash -el {0}
         run: |
             conda info
             conda list
-            conda install -c pytorch pytorch
+            conda install pytorch torchvision torchaudio cpuonly -c pytorch
       - name: PowerShell
         shell: powershell
         run: |
